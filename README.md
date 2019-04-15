@@ -35,25 +35,9 @@ python train.py with logdir=runs/model iterations=1000000
 
 Trained models will be saved in the specified `logdir`, otherwise at a timestamped directory under `runs/`.
 
-### Testing
-
-To evaluate the trained model using the MAPS database, run the following command to calculate the note and frame metrics:
-
-```bash
-python evaluate.py runs/model/model-100000.pt
-```
-
-Specifying `--save-path` will output the transcribed MIDI file along with the piano roll images:
-
-```bash
-python evaluate.py runs/model/model-100000.pt --save-path output/
-```
-
-In order to test on the Maestro dataset's test split instead of the MAPS database, run:
-
-```bash
-python evaluate.py runs/model/model-100000.pt Maestro test
-```
+### Convert WAV file into MIDI
+* convert wav format file into flac by ffmpeg(ffmpeg -y -loglevel fatal -i a.wav -ac 1 -ar 16000 a.flac)
+* put the flac file 
 
 ## Implementation Details
 
