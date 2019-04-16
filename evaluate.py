@@ -106,9 +106,7 @@ def evaluate_file(model_file, dataset, dataset_group, sequence_length, save_path
     for key, values in metrics.items():
         if key.startswith('metric/'):
             _, category, name = key.split('/')
-            print(f'{category:>32} {name:25}: {np.mean(values):.3f} ± {np.std(values):.3f}')
-
-
+            print(category, name, np.mean(values), np.std(values))
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('model_file', type=str)

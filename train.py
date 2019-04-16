@@ -25,7 +25,7 @@ def config():
     resume_iteration = None
     checkpoint_interval = 1000
 
-    batch_size = 8
+    batch_size = 4
     sequence_length = 327680
     model_complexity = 48
 
@@ -69,7 +69,7 @@ def train(logdir, device, iterations, resume_iteration, checkpoint_interval, bat
 
     validation_dataset = MAESTRO(groups=validation_groups, sequence_length=validation_length)
 
-    if resume_iteration is None:
+    if resume_iteration is None: # 229, 88, 48,
         model = OnsetsAndFrames(N_MELS, MAX_MIDI - MIN_MIDI + 1, model_complexity).to(device)
         optimizer = torch.optim.Adam(model.parameters(), learning_rate)
         resume_iteration = 0
@@ -101,6 +101,7 @@ def train(logdir, device, iterations, resume_iteration, checkpoint_interval, bat
         if i % validation_interval == 0:
             model.eval()
             with torch.no_grad():
+
                 for key, value in evaluate(validation_dataset, model).items():
                     writer.add_scalar('validation/' + key.replace(' ', '_'), np.mean(value), global_step=i)
             model.train()
